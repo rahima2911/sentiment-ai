@@ -1,21 +1,16 @@
 # SentimentAI
 
-Real-time NLP sentiment analysis — Positive / Negative / Neutral.  
-Detects **sarcasm** and **mixed sentiment** automatically.
+A web app that analyzes text and tells you whether it's positive, negative, or neutral. It also picks up on sarcasm and mixed feelings in text — something most basic tools miss.
+
+Built with React on the frontend and Python Flask on the backend. The model uses a combination of TF-IDF with Logistic Regression and VADER scoring.
 
 ---
 
-## Tech Stack
-- **Frontend** — React 18, Axios
-- **Backend** — Python Flask, Flask-CORS  
-- **ML Model** — Scikit-Learn (Logistic Regression + TF-IDF)
-- **NLP** — NLTK VADER (hybrid scoring)
+## How to Run
 
----
+You need two terminals open at the same time.
 
-## Setup — VS Code (2 terminals)
-
-### Terminal 1 — Backend
+**Terminal 1 — Start the backend**
 
 ```bash
 cd sentiment-app/backend
@@ -23,11 +18,7 @@ pip3 install -r requirements.txt
 python3 app.py
 ```
 
-Runs on **http://localhost:5000**
-
----
-
-### Terminal 2 — Frontend
+**Terminal 2 — Start the frontend**
 
 ```bash
 cd sentiment-app/frontend
@@ -35,53 +26,25 @@ npm install
 npm start
 ```
 
-Opens **http://localhost:3000** automatically
+The app will open at `http://localhost:3000`. The backend runs on `http://localhost:5000`.
 
 ---
 
-## API Endpoints
+## Tech Used
 
-| Method | URL | Description |
-|--------|-----|-------------|
-| GET  | `/api/health` | Health check |
-| POST | `/api/sentiment/analyze` | Analyze single text |
-| POST | `/api/sentiment/batch` | Analyze up to 10 texts |
-| GET  | `/api/sentiment/history` | Get history |
-| DELETE | `/api/sentiment/history` | Clear history |
-| GET  | `/api/sentiment/stats` | Statistics |
-| POST | `/api/sentiment/retrain` | Retrain model |
-
-### Example
-
-```bash
-curl -X POST http://localhost:5000/api/sentiment/analyze \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Great job breaking the website before the meeting."}'
-```
-
-```json
-{
-  "result": {
-    "sentiment": "negative",
-    "confidence": 75.6,
-    "is_sarcastic": true,
-    "intensity": "Strong",
-    "scores": { "positive": 8.2, "negative": 75.6, "neutral": 16.2 }
-  }
-}
-```
+- React 18
+- Python Flask
+- Scikit-Learn (Logistic Regression + TF-IDF)
+- NLTK and VADER
 
 ---
 
-## Troubleshooting
+## Common Issues
 
-| Problem | Fix |
-|---------|-----|
-| `ModuleNotFoundError` | `pip3 install -r requirements.txt` |
-| "API Offline" shown | Make sure Flask is running on port 5000 |
-| `npm install` fails | Delete `node_modules/`, run `npm install` again |
-| NLTK error | `python3 -c "import nltk; nltk.download('all')"` |
+**"API Offline" showing** — make sure the Flask backend is running in Terminal 1.
 
----
+**ModuleNotFoundError** — run `pip3 install -r requirements.txt` again.
 
-*SentimentAI — React + Flask + Scikit-Learn*
+**npm install fails** — delete the `node_modules` folder and run `npm install` again.
+
+**NLTK error** — run this once: `python3 -c "import nltk; nltk.download('all')"`
